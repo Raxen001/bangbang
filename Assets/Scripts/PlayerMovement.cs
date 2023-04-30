@@ -28,4 +28,29 @@ public class PlayerMovement : NetworkBehaviour
             gameObject.transform.Translate(Vector2.left * Time.deltaTime * speed);
         }
     }
+
+    public void MoveLeft()
+    {
+        if (!IsOwner) return; 
+        
+        gameObject.transform.Translate(Vector2.left * Time.deltaTime * speed);
+    }
+
+    public void MoveUp()
+    {
+        if (!IsOwner) return;
+        //Movement
+        gameObject.transform.Translate(Vector2.up * Time.deltaTime * speed);
+    }
+    public void MoveDown()
+    {
+        if (!IsOwner) return;
+        gameObject.transform.Translate(Vector2.down * Time.deltaTime * speed);
+    }
+    public void MoveRight()
+    {
+        if (!IsOwner) return;
+        gameObject.transform.Translate(Vector2.right * Time.deltaTime * speed);
+    }
+
 }
