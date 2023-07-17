@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class InputManager : NetworkBehaviour
 {
     private GameObject[] player;
-    int localPlayer;
+    int localPlayerIndex;
     private PlayerMovement playerScript;
 
     // Start is called before the first frame update
@@ -17,31 +17,11 @@ public class InputManager : NetworkBehaviour
         {
             if (player[i].GetComponent<PlayerMovement>().IsOwner)
             {
-                localPlayer = i;
+                localPlayerIndex = i;
                 break;
             }
         }
-        playerScript = player[localPlayer].GetComponent<PlayerMovement>();
+        playerScript = player[localPlayerIndex].GetComponent<PlayerMovement>();
     }
-
-    public void MoveLeft()
-    {
-        playerScript.MoveLeft();
-    }
-
-    public void MoveUp()
-    {
-        playerScript.MoveUp();
-    }
-    public void MoveRight()
-    {
-        playerScript.MoveRight();
-    }
-    public void MoveDown()
-    {
-        playerScript.MoveDown();
-    }
-
-    // Update is called once per frame
 
 }
