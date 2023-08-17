@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4076677340229700365}
   - component: {fileID: 5450424954339995277}
   - component: {fileID: -4229023262909912142}
+  - component: {fileID: 2740794439276642933}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -169,7 +170,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &5450424954339995277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,3 +209,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &2740794439276642933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394762514785691499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807382c556d4f2d4cbe5249bb5e91530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5499820067286270078, guid: f5170b696a79b13448d89e5d3544f3e0, type: 3}
+  bulletSpeed: 20
+  UpwardForce: 1

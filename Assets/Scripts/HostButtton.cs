@@ -14,12 +14,10 @@ public class HostButtton : NetworkManager
     public void Host()
     {
         StartHost();
-        input.FindLocalPlayer();
     }
 
     public void Client()
     {
         StartClient();
-        input.FindLocalPlayer();
     }
 }

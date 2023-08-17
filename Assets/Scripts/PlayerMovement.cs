@@ -118,7 +118,7 @@ public class PlayerMovement : NetworkBehaviour
         {
             jumping = false;
         }
-        Debug.Log(jumpBoost + OwnerClientId);
+        //Debug.Log(jumpBoost + OwnerClientId);
     }
 
     private void SwitchCameraLookAt()

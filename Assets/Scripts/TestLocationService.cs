@@ -20,7 +20,6 @@ public class TestLocationService : MonoBehaviour
         var host = Dns.GetHostEntry(Dns.GetHostName());
         foreach (var ip in host.AddressList)
         {
-            Debug.Log(ip.ToString());
             if (ip.AddressFamily == AddressFamily.InterNetwork)
             {
                 hintText = ip.ToString();
