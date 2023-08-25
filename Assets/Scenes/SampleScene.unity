@@ -372,6 +372,9 @@ GameObject:
   - component: {fileID: 98780781}
   - component: {fileID: 98780780}
   - component: {fileID: 98780782}
+  - component: {fileID: 98780783}
+  - component: {fileID: 98780785}
+  - component: {fileID: 98780784}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -499,6 +502,53 @@ MonoBehaviour:
     LoadSceneTimeOut: 120
     SpawnTimeout: 1
     EnableNetworkLogs: 1
+--- !u!114 &98780783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98780777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a2bd0c61af2e748baf691259d854b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DrawOffset: {x: 100, y: 100}
+  LabelColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &98780784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98780777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46ffdc4d7ab38141a7ae4b98322c4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Discovery: {fileID: 98780785}
+  DrawOffset: {x: 10, y: 210}
+--- !u!114 &98780785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98780777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e41f5ac27cd5d94290b437bd63e3e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Port: 47777
+  m_UniqueApplicationId: -8083626527196723507
+  m_StartWithServer: 1
+  ServerName: EnterName
+  OnServerFound:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &165359275
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +697,6 @@ GameObject:
   - component: {fileID: 374886914}
   - component: {fileID: 374886913}
   - component: {fileID: 374886917}
-  - component: {fileID: 374886916}
   m_Layer: 5
   m_Name: ShootButton
   m_TagString: Untagged
@@ -770,22 +819,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374886911}
   m_CullTransparentMesh: 1
---- !u!114 &374886916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374886911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 481413161
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &374886917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1047,6 +1080,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b5709d4660d2f42882fa1f010ca4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsLocalPlayer>k__BackingField: 0
+  <IsOwner>k__BackingField: 0
+  <IsServer>k__BackingField: 0
+  <IsClient>k__BackingField: 0
+  <IsHost>k__BackingField: 0
+  <IsOwnedByServer>k__BackingField: 0
+  <IsSpawned>k__BackingField: 0
+  m_NetworkObject: {fileID: 0}
+  <NetworkObjectId>k__BackingField: 0
+  <NetworkBehaviourId>k__BackingField: 0
+  NetworkBehaviourIdCache: 0
+  <OwnerClientId>k__BackingField: 0
+  m_VarInit: 0
+  player: []
+  localPlayerIndex: 0
 --- !u!4 &690789512
 Transform:
   m_ObjectHideFlags: 0
@@ -1080,7 +1128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &773913057
 MonoBehaviour:
   m_ObjectHideFlags: 0

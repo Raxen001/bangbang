@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-
-public class BulletHandeler : NetworkBehaviour
+public class GunHandeler : NetworkBehaviour
 {
-    [SerializeField] GameObject bulletPrefab;
-    private GameObject bulletInstance;
+    public GunSO gunSO;
     private Rigidbody2D bulletRigidbody;
-    [SerializeField] private float bulletSpeed = 30f;
-    [SerializeField] private float UpwardForce = 30f;
+    private GameObject bulletInstance;
+
+    public override void OnNetworkSpawn()
+    {
+        FindObjectOfType<ShootButton>().AssignValues();
+    }
     public void Shoot()
     {
         if (!IsOwner) return;
@@ -27,8 +29,8 @@ public class BulletHandeler : NetworkBehaviour
     [ClientRpc]
     private void ShootBulletClientRpc()
     {
-        bulletInstance = Instantiate(bulletPrefab, transform.position, transform.rotation);
+        bulletInstance = Instantiate(gunSO.bulletPrefab, transform.position, transform.rotation);
         bulletRigidbody = bulletInstance.GetComponent<Rigidbody2D>();
-        bulletRigidbody.AddForce(Vector2.left * bulletSpeed, ForceMode2D.Impulse);
+        bulletRigidbody.AddForce(Vector2.left * gunSO.bulletSpeed, ForceMode2D.Impulse);
     }
 }

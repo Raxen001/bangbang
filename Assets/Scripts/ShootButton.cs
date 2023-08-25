@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 
-public class ShootButton : NetworkBehaviour
+public class ShootButton : MonoBehaviour
 {
     private GameObject player;
-    private BulletHandeler bulletHandler;
+    private GunHandeler bulletHandler;
 
-    public override void OnNetworkSpawn()
+    public void AssignValues()
     {
-        player = FindObjectOfType<InputManager>().FindLocalPlayer();
-        bulletHandler = player.GetComponent<BulletHandeler>();
+        player = FindObjectOfType<MyNetworkManager>().FindLocalPlayer();
+        bulletHandler = player.GetComponent<GunHandeler>();
     }
-
-    public void ShootCall()
+   public void ShootCall()
     {
-        bulletHandler.Shoot();
+        bulletHandler.Shoot();  
     }
 }

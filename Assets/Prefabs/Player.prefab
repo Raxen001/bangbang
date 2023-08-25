@@ -221,6 +221,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807382c556d4f2d4cbe5249bb5e91530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5499820067286270078, guid: f5170b696a79b13448d89e5d3544f3e0, type: 3}
-  bulletSpeed: 20
-  UpwardForce: 1
+  gunSO: {fileID: 11400000, guid: 2d8200d648864cd47bfc8602d0c82cbf, type: 2}
