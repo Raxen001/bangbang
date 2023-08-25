@@ -32,5 +32,6 @@ public class GunHandeler : NetworkBehaviour
         bulletInstance = Instantiate(gunSO.bulletPrefab, transform.position, transform.rotation);
         bulletRigidbody = bulletInstance.GetComponent<Rigidbody2D>();
         bulletRigidbody.AddForce(Vector2.left * gunSO.bulletSpeed, ForceMode2D.Impulse);
+        bulletInstance.GetComponent<Bullet>().Damage = gunSO.damage;
     }
 }
