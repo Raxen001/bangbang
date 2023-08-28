@@ -7,6 +7,7 @@ public class GunHandeler : NetworkBehaviour
     public GunSO gunSO;
     private Rigidbody2D bulletRigidbody;
     private GameObject bulletInstance;
+    private Bullet bullet;
 
     public override void OnNetworkSpawn()
     {
@@ -23,15 +24,19 @@ public class GunHandeler : NetworkBehaviour
     [ServerRpc]
     public void ShootBulletServerRpc(ServerRpcParams serverRpcParams = default)
     {
-        ShootBulletClientRpc();
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        ShootBulletClientRpc(clientId);
     }
 
     [ClientRpc]
-    private void ShootBulletClientRpc()
+    private void ShootBulletClientRpc(ulong clientId)
     {
         bulletInstance = Instantiate(gunSO.bulletPrefab, transform.position, transform.rotation);
         bulletRigidbody = bulletInstance.GetComponent<Rigidbody2D>();
         bulletRigidbody.AddForce(Vector2.left * gunSO.bulletSpeed, ForceMode2D.Impulse);
-        bulletInstance.GetComponent<Bullet>().Damage = gunSO.damage;
+        bullet = bulletInstance.GetComponent<Bullet>();
+        bullet.Damage = gunSO.damage;
+        bullet.ID = clientId;
+        Debug.Log(clientId);
     }
 }

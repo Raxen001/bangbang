@@ -5,19 +5,21 @@ using Unity.Netcode;
 
 public class Health : NetworkBehaviour
 {
-    private NetworkVariable<float> health = new NetworkVariable<float>(default,
+    [SerializeField] private NetworkVariable<float> health = new NetworkVariable<float>(default,
         NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private const int maxHealth = 100;
+    private PlayerID playerID;
 
     public override void OnNetworkSpawn()
     {
         health.Value = maxHealth;
         health.OnValueChanged += HealthChanged;
+        playerID = GetComponent<PlayerID>();
     }
 
-    public void UpdateHealth(float value)
+    public void UpdateHealth(float value,ulong id)
     {
-        if(IsOwner)
+        if(IsOwner && playerID.ID != id)
         health.Value = health.Value - value;
     }
 

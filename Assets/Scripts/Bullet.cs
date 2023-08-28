@@ -5,6 +5,19 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private int damage;
+    private ulong id;
+
+    public ulong ID
+    {
+        get
+        {
+            return id;
+        }
+        set
+        {
+            id = value;
+        }
+    }
 
     public int Damage
     {
@@ -46,7 +59,7 @@ public class Bullet : MonoBehaviour
     private void DamagePlayer(GameObject player)
     {
         player.TryGetComponent<Health>(out Health health);
-        if (health != null) health.UpdateHealth(damage);
+        if (health != null) health.UpdateHealth(damage,id);
     }
 
 }
