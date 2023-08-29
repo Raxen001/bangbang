@@ -12,6 +12,7 @@ public class ShootButton : MonoBehaviour
     }
    public void ShootCall()
     {
+        if (bulletHandler == null) return;
         bulletHandler.Shoot();  
     }
 }

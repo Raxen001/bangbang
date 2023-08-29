@@ -12,21 +12,38 @@ public class Health : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        health.Value = maxHealth;
         health.OnValueChanged += HealthChanged;
         playerID = GetComponent<PlayerID>();
+        if(IsOwner) health.Value = maxHealth;
     }
 
     public void UpdateHealth(float value,ulong id)
     {
         if(IsOwner && playerID.ID != id)
-        health.Value = health.Value - value;
+        {
+            health.Value = health.Value - value;
+        }
+        KillPlayer();
     }
 
+    private void KillPlayer()
+    {
+        if(health.Value <= 0)
+        {
+            Debug.Log("I died "+ playerID);
+            DestroyPlayerServerRpc();
+        }
+    }
     private void HealthChanged(float previousValue , float newValue)
     {
         if(IsOwner)
         Debug.Log(newValue);
+    }
+
+    [ServerRpc]
+    private void DestroyPlayerServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        Destroy(gameObject);
     }
 }
 

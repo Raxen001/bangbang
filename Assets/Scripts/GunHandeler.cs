@@ -21,6 +21,18 @@ public class GunHandeler : NetworkBehaviour
 
     }
 
+    private void AssignBulletIDAndDamage(ulong value)
+    {
+        bullet = bulletInstance.GetComponent<Bullet>();
+        bullet.Damage = gunSO.damage;
+        bullet.ID = value;
+    }
+
+    private void AssignBulletForce(GameObject bulletInstace)
+    {
+        bulletRigidbody = bulletInstance.GetComponent<Rigidbody2D>();
+        bulletRigidbody.AddForce(Vector2.left * gunSO.bulletSpeed, ForceMode2D.Impulse);
+    }
     [ServerRpc]
     public void ShootBulletServerRpc(ServerRpcParams serverRpcParams = default)
     {
@@ -32,11 +44,7 @@ public class GunHandeler : NetworkBehaviour
     private void ShootBulletClientRpc(ulong clientId)
     {
         bulletInstance = Instantiate(gunSO.bulletPrefab, transform.position, transform.rotation);
-        bulletRigidbody = bulletInstance.GetComponent<Rigidbody2D>();
-        bulletRigidbody.AddForce(Vector2.left * gunSO.bulletSpeed, ForceMode2D.Impulse);
-        bullet = bulletInstance.GetComponent<Bullet>();
-        bullet.Damage = gunSO.damage;
-        bullet.ID = clientId;
-        Debug.Log(clientId);
+        AssignBulletForce(bulletInstance);
+        AssignBulletIDAndDamage(clientId);
     }
 }
