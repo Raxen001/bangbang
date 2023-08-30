@@ -8,15 +8,16 @@ public class GunHandeler : NetworkBehaviour
     private Rigidbody2D bulletRigidbody;
     private GameObject bulletInstance;
     private Bullet bullet;
+    
 
     public override void OnNetworkSpawn()
     {
         FindObjectOfType<ShootButton>().AssignValues();
     }
-    public void Shoot()
+    public void Shoot(Vector2 coordinates)
     {
         if (!IsOwner) return;
-        ShootBulletServerRpc();
+        ShootBulletServerRpc(coordinates);
         //bulletRigidbody.AddForce(Vector2.up * UpwardForce, ForceMode2D.Impulse);
 
     }
@@ -28,23 +29,27 @@ public class GunHandeler : NetworkBehaviour
         bullet.ID = value;
     }
 
-    private void AssignBulletForce(GameObject bulletInstace)
+    private void AssignBulletForce(Vector2 coordinates , GameObject bulletInstace)
     {
         bulletRigidbody = bulletInstance.GetComponent<Rigidbody2D>();
-        bulletRigidbody.AddForce(Vector2.left * gunSO.bulletSpeed, ForceMode2D.Impulse);
+        bulletRigidbody.AddForce(coordinates * gunSO.bulletSpeed, ForceMode2D.Impulse);
     }
     [ServerRpc]
-    public void ShootBulletServerRpc(ServerRpcParams serverRpcParams = default)
+    public void ShootBulletServerRpc(Vector2 coordinates,ServerRpcParams serverRpcParams = default)
     {
         var clientId = serverRpcParams.Receive.SenderClientId;
-        ShootBulletClientRpc(clientId);
+        ShootBulletClientRpc(coordinates,clientId);
     }
 
     [ClientRpc]
-    private void ShootBulletClientRpc(ulong clientId)
+    private void ShootBulletClientRpc(Vector2 coordinates,ulong clientId)
     {
-        bulletInstance = Instantiate(gunSO.bulletPrefab, transform.position, transform.rotation);
-        AssignBulletForce(bulletInstance);
+        float angle = coordinates.y / coordinates.x;
+        float zangle = Mathf.Atan(angle);
+        Quaternion quaternion;
+        quaternion = Quaternion.Euler(0f, 0f, zangle);
+        bulletInstance = Instantiate(gunSO.bulletPrefab, transform.position,quaternion);
+        AssignBulletForce(coordinates,bulletInstance);
         AssignBulletIDAndDamage(clientId);
     }
 }

@@ -27,7 +27,7 @@ public class PlayerMovement : NetworkBehaviour
         base.OnNetworkSpawn();
         //Getting the joystick component 
         if (!IsOwner) return;
-        joyStick = FindObjectOfType<VariableJoystick>().GetComponent<VariableJoystick>();
+        joyStick = GameObject.Find("Movement Joystick").GetComponent<VariableJoystick>();
         rb = GetComponent<Rigidbody2D>();
         playerFollowCamera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
         SwitchCameraLookAt();
