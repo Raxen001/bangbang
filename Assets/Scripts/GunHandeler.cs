@@ -8,18 +8,44 @@ public class GunHandeler : NetworkBehaviour
     private Rigidbody2D bulletRigidbody;
     private GameObject bulletInstance;
     private Bullet bullet;
-    
+    public bool canShoot = true;
+    private Reload reload;
 
     public override void OnNetworkSpawn()
     {
         FindObjectOfType<ShootButton>().AssignValues();
+        reload = GetComponent<Reload>();
+        GunSwap();
+    }
+
+    private void GunSwap()
+    {
+        reload.AssignMagSize(gunSO.magSize);
+        reload.ReloadMag();
     }
     public void Shoot(Vector2 coordinates)
     {
         if (!IsOwner) return;
-        ShootBulletServerRpc(coordinates);
+        if (reload.BulletCounter())
+        {
+            StartCoroutine(DelayShooting(gunSO.fireRate));
+            ShootBulletServerRpc(coordinates);
+        }
+        else
+        {
+            StartCoroutine(DelayShooting(gunSO.reloadTime));
+            reload.ReloadMag();
+        }
+        
         //bulletRigidbody.AddForce(Vector2.up * UpwardForce, ForceMode2D.Impulse);
 
+    }
+
+    IEnumerator DelayShooting(float fireRate)
+    {
+        canShoot = false;
+        yield return new WaitForSecondsRealtime(fireRate);
+        canShoot = true;
     }
 
     private void AssignBulletIDAndDamage(ulong value)

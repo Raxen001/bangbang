@@ -19,13 +19,17 @@ public class ShootButton : MonoBehaviour
 
     private void Shoot()
     {
-        if(joyStick.Vertical > 0.75f || joyStick.Horizontal > 0.75f || joyStick.Horizontal < -0.75f || joyStick.Vertical < -0.75f)
+        if(bulletHandler.canShoot == true)
         {
-            if (bulletHandler == null) return;
-            //float angle = joyStick.Vertical / joyStick.Horizontal;
-            Vector2 coordinates = new Vector2(joyStick.Horizontal, joyStick.Vertical);
-            bulletHandler.Shoot(coordinates);
+            if (joyStick.Vertical > 0.75f || joyStick.Horizontal > 0.75f || joyStick.Horizontal < -0.75f || joyStick.Vertical < -0.75f)
+            {
+                if (bulletHandler == null) return;
+                //float angle = joyStick.Vertical / joyStick.Horizontal;
+                Vector2 coordinates = new Vector2(joyStick.Horizontal, joyStick.Vertical);
+                bulletHandler.Shoot(coordinates);
+            }
         }
+        
     }
     public void ShootCall()
     {
