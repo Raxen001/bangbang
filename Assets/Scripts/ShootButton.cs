@@ -14,7 +14,8 @@ public class ShootButton : MonoBehaviour
 
     private void Update()
     {
-        Shoot();
+        if (bulletHandler != null)
+            Shoot();
     }
 
     private void Shoot()
